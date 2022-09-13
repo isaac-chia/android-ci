@@ -23,9 +23,10 @@ pipeline {
               returnStdout: true
             ).trim()
           echo "VersionInfo: ${VERSION}"
-          echo "TOKEN: ${TOKEN}"
+
 
           withCredentials([string(credentialsId: 'github_token ', variable: 'TOKEN')]) {
+            echo "TOKEN: ${TOKEN}"
             sh '''#!/bin/bash
 
               DATA='{
