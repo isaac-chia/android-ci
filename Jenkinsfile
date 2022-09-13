@@ -47,7 +47,7 @@ pipeline {
               upload=$(echo $upload | cut -d '"' -f4 | cut -d "{" -f1)
               echo "$upload"
 
-              upload="$upload?name=$ARTIFACT"
+              upload="$upload?name=app-release.apk"
               echo "$upload"
 
               uploadResponse=$(curl -H "Authorization: token $TOKEN" -H "Content-Type: $(file -b --mime-type $ARTIFACT)" --data-binary @$ARTIFACT $upload)
