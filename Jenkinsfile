@@ -6,9 +6,9 @@ pipeline {
   }
 
   stages {
-    stage('Run Tests') {
+    stage('Build') {
       steps {
-          echo 'Running Tests'
+          echo 'Build'
           script {
               sh "./gradlew assembleRelease testRelease"
           }
@@ -39,7 +39,7 @@ pipeline {
               }'
               RES=$(curl -H "Authorization: token $TOKEN"  --data "$DATA" "https://api.github.com/repos/$REPO/releases")
               echo "$RES"
-              ARTIFACT='$WORKSPACE/app/build/outputs/apk/release/app-release-unsigned.apk'
+              ARTIFACT='app/build/outputs/apk/release/app-release-unsigned.apk'
 
               upload=$(echo $RES | grep upload_url)
               echo "$upload"
