@@ -45,9 +45,7 @@ pipeline {
               upload=$(echo $RES | grep upload_url)
               upload=$(echo $upload | cut -d """ -f4 | cut -d "{" -f1)
               upload="$upload?name=$ARTIFACT"
-              uploadResponse=$(curl -H "Authorization: token $TOKEN" \
-                   -H "Content-Type: $(file -b --mime-type $ARTIFACT)" \
-                   --data-binary @$ARTIFACT $upload)
+              uploadResponse=$(curl -H "Authorization: token $TOKEN" -H "Content-Type: $(file -b --mime-type $ARTIFACT)" --data-binary @$ARTIFACT $upload)
               '''
           }
         }
