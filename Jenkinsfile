@@ -28,11 +28,11 @@ pipeline {
           withCredentials([string(credentialsId: 'github_token ', variable: 'TOKEN')]) {
             sh '''#!/bin/bash
 
-              echo "VERSION:${APP_VERSION}"
+              echo "VERSION:'''+ APP_VERSION +'''"
               DATA='{
                   "tag_name": "$APP_VERSION",
                   "target_commitish": "main",
-                  "name": "$VERSION",
+                  "name": "$APP_VERSION",
                   "body": "Publish $APP_VERSION",
                   "draft": false,
                   "prerelease": false
