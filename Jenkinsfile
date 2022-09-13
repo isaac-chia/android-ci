@@ -30,10 +30,10 @@ pipeline {
 
               echo "VERSION:'''+ APP_VERSION +'''"
               DATA='{
-                  "tag_name": "$APP_VERSION",
+                  "tag_name": "'''+ APP_VERSION +'''",
                   "target_commitish": "main",
-                  "name": "$APP_VERSION",
-                  "body": "Publish $APP_VERSION",
+                  "name": "'''+ APP_VERSION +'''",
+                  "body": "Publish '''+ APP_VERSION +'''",
                   "draft": false,
                   "prerelease": false
               }'
