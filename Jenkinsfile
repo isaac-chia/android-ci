@@ -39,14 +39,14 @@ pipeline {
               }'
               RES=$(curl -H "Authorization: token $TOKEN"  --data "$DATA" "https://api.github.com/repos/$REPO/releases")
               echo "$RES"
-              ARTIFACT='build/outputs/apk/release/app-release.apk'
+              ARTIFACT='/app/build/outputs/apk/release/app-release-unsigned.apk'
 
               upload=$(echo $RES | grep upload_url)
 
               upload=$(echo $upload | cut -d '"' -f4 | cut -d "{" -f1)
 
               upload="$upload?name=$ARTIFACT"
-
+ echo         echo "$upload"
               uploadResponse=$(curl -H "Authorization: token $TOKEN" -H "Content-Type: $(file -b --mime-type $ARTIFACT)" --data-binary @$ARTIFACT $upload)
 
               '''
