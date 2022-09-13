@@ -18,22 +18,22 @@ pipeline {
     stage('Release') {
       steps {
         script {
-          VERSION = sh (
+          def APP_VERSION = sh (
               script: './gradlew -q printVersion',
               returnStdout: true
             ).trim()
-          echo "VersionInfo: ${VERSION}"
+          echo "VersionInfo: ${APP_VERSION}"
 
 
           withCredentials([string(credentialsId: 'github_token ', variable: 'TOKEN')]) {
             sh '''#!/bin/bash
 
-              echo "VERSION:${VERSION}"
+              echo "VERSION:${APP_VERSION}"
               DATA='{
-                  "tag_name": "$VERSION",
+                  "tag_name": "$APP_VERSION",
                   "target_commitish": "main",
                   "name": "$VERSION",
-                  "body": "Publish $VERSION",
+                  "body": "Publish $APP_VERSION",
                   "draft": false,
                   "prerelease": false
               }'
