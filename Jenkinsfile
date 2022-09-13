@@ -26,7 +26,6 @@ pipeline {
 
 
           withCredentials([string(credentialsId: 'github_token ', variable: 'TOKEN')]) {
-            echo "TOKEN: ${TOKEN}"
             sh '''#!/bin/bash
 
               DATA='{
@@ -37,7 +36,7 @@ pipeline {
                   "draft": false,
                   "prerelease": false
               }'
-              curl -H 'Authorization: token $TOKEN'  --data "$DATA" "https://api.github.com/repos/$REPO/releases"
+              curl -H "Authorization: token $TOKEN"  --data "$DATA" "https://api.github.com/repos/$REPO/releases"
               '''
           }
         }
