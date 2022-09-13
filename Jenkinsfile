@@ -39,7 +39,7 @@ pipeline {
                   "prerelease": false
               }'
               RES=$(curl -H "Authorization: token $TOKEN"  --data "$DATA" "https://api.github.com/repos/$REPO/releases")
-
+              echo "$RES"
               ARTIFACT=build/outputs/apk/release/app-release.apk
 
               upload=$(echo $RES | grep upload_url)
