@@ -24,7 +24,6 @@ pipeline {
             ).trim()
           echo "VersionInfo: ${APP_VERSION}"
 
-
           withCredentials([string(credentialsId: 'github_token ', variable: 'TOKEN')]) {
             sh '''#!/bin/bash
 
