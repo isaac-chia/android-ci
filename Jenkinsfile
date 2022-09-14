@@ -16,6 +16,9 @@ pipeline {
     }
 
     stage('Release') {
+      when {
+        branch 'main'
+      }
       steps {
         script {
           def APP_VERSION = sh (
@@ -23,7 +26,6 @@ pipeline {
               returnStdout: true
             ).trim()
           echo "VersionInfo: ${APP_VERSION}"
-
 
           withCredentials([string(credentialsId: 'github_token ', variable: 'TOKEN')]) {
             sh '''#!/bin/bash
