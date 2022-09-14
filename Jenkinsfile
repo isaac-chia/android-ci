@@ -16,6 +16,9 @@ pipeline {
     }
 
     stage('Release') {
+      when {
+        branch 'main'
+      }
       steps {
         script {
           def APP_VERSION = sh (
