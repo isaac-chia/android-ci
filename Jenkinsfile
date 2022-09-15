@@ -39,21 +39,21 @@ pipeline {
                   "draft": false,
                   "prerelease": false
               }'
-              RES=$(curl -H "Authorization: token $TOKEN"  --data "$DATA" "https://api.github.com/repos/$REPO/releases")
+              RESPONSE=$(curl -H "Authorization: token $TOKEN"  --data "$DATA" "https://api.github.com/repos/$REPO/releases")
               ARTIFACT='app/build/outputs/apk/release/app-release-unsigned.apk'
-              echo "$RES"
+              echo "$RESPONSE"
 
-              upload=$(echo "$RES" | grep upload_url)
+              UPLOAD=$(echo "$RESPONSE" | grep upload_url)
 
-              if [ -z "$upload" ] ; then
+              if [ -z "$UPLOAD" ] ; then
                 exit 1
               fi
 
-              upload=$(echo $upload | cut -d '"' -f4 | cut -d "{" -f1)
+              UPLOAD=$(echo $UPLOAD | cut -d '"' -f4 | cut -d "{" -f1)
 
-              upload="$upload?name=app-release.apk"
+              UPLOAD="$UPLOAD?name=app-release.apk"
 
-              uploadResponse=$(curl -H "Authorization: token $TOKEN" -H "Content-Type: $(file -b --mime-type $ARTIFACT)" --data-binary @$ARTIFACT $upload)
+              UPLOAD_RESPONSE=$(curl -H "Authorization: token $TOKEN" -H "Content-Type: $(file -b --mime-type $ARTIFACT)" --data-binary @$ARTIFACT $UPLOAD)
 
               '''
           }
