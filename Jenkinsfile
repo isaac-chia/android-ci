@@ -21,16 +21,19 @@ pipeline {
       }
       steps {
         script {
+
           def APP_VERSION = sh (
               script: './gradlew -q printVersion',
               returnStdout: true
             ).trim()
+
           echo "VersionInfo: ${APP_VERSION}"
 
           withCredentials([string(credentialsId: 'github_token ', variable: 'TOKEN')]) {
             sh '''#!/bin/bash
 
               echo "VERSION:'''+ APP_VERSION +'''"
+
               DATA='{
                   "tag_name": "'''+ APP_VERSION +'''",
                   "target_commitish": "main",
@@ -39,6 +42,7 @@ pipeline {
                   "draft": false,
                   "prerelease": false
               }'
+
               RESPONSE=$(curl -H "Authorization: token $TOKEN"  --data "$DATA" "https://api.github.com/repos/$REPO/releases")
               ARTIFACT='app/build/outputs/apk/release/app-release-unsigned.apk'
               echo "$RESPONSE"
